@@ -1,0 +1,26 @@
+import os
+import re
+import time
+
+def logAnalyzer(path,searchwords):
+    newfile=open('hello.txt','wb+')
+    print ('分析进行中，请稍候。。。。。。')
+    for dirpath,dirname,filenames in os.walk(path):
+        for filename in filenames:
+            file=os.path.join(dirpath,filename)
+            fo=open(file,'r',encoding='gb18030',errors='ignore')
+            lines=fo.readlines()
+            for line in lines:
+                    rs=re.search(searchwords,line)
+                    if rs:
+                        newfile.write(line.encode('utf-8'))
+            fo.close()
+    newfile.close()
+
+if __name__=='__main__':
+    path=input('请输入路径： ')
+    searchwords=input('请输入搜索关键字： ')
+    logAnalyzer(path,searchwords)
+    print ('分析完毕！')
+    time.sleep(6)
+   
